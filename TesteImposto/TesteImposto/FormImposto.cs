@@ -46,6 +46,18 @@ namespace TesteImposto
             return table;
         }
 
+        private void LimparDados()
+        {
+            // campos do formulario
+            txtEstadoDestino.Text = "";
+            txtEstadoOrigem.Text = "";
+            textBoxNomeCliente.Text = "";
+            // grid
+            dataGridViewPedidos.DataSource = null;
+            dataGridViewPedidos.Rows.Clear();
+            dataGridViewPedidos.DataSource = GetTablePedidos();
+        }
+
         private void buttonGerarNotaFiscal_Click(object sender, EventArgs e)
         {            
             NotaFiscalService service = new NotaFiscalService();
@@ -69,6 +81,8 @@ namespace TesteImposto
 
             service.GerarNotaFiscal(pedido);
             MessageBox.Show("Operação efetuada com sucesso");
+            // limpamos os dados da tela após registro no banco de dados
+            LimparDados();
         }
     }
 }
